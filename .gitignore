@@ -5,6 +5,7 @@
 /coverage
 
 /build
+/buildapp
 /dist
 /.venv
 __pycache__/
