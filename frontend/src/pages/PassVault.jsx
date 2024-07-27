@@ -8,19 +8,19 @@ const PassVault = () => {
   ];
   const [selectedItem, setSelectedItem] = useState(null);
   const [isPasswordEntered, setIsPasswordEntered] = useState(false);
-  const [password, setPassword] = useState("");
+  const [masterPassword, setMasterPassword] = useState("");
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setIsPasswordEntered(false);
-    setPassword("");
+    setMasterPassword("");
   };
 
-  const handlePassswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleMasterPassChange = (e) => {
+    setMasterPassword(e.target.value);
   };
 
-  const handlePasswordSubmit = (e) => {
+  const handleMasterPassSubmit = (e) => {
     e.preventDefault();
     {
       /* Password checking logic */
@@ -29,7 +29,7 @@ const PassVault = () => {
   };
 
   return (
-    <div className="content">
+    <div>
       <div className="password-list">
         <ul>
           {items.map((item) => (
@@ -43,12 +43,12 @@ const PassVault = () => {
         {!selectedItem ? (
           <div>Nothing selected</div>
         ) : !isPasswordEntered ? (
-          <form onSubmit={handlePasswordSubmit}>
+          <form onSubmit={handleMasterPassSubmit}>
             <input
               type="password"
-              value={password}
-              onChange={handlePassswordChange}
-              placeholder="Enter password"
+              value={masterPassword}
+              onChange={handleMasterPassChange}
+              placeholder="Enter master password"
             />
             <button type="submit">Submit</button>
           </form>

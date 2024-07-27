@@ -78,8 +78,10 @@ body {
   justify-content: flex-start;
   padding: 30px 0 0 30px;
   width: 30vw;
+  color: #dedede;
 }
 
 .item-details {
   float: right;
+  color: white;
 }
