@@ -12,16 +12,16 @@ export const Sidebar = () => {
       <div className="sidebarcontent">
         <ul className="sidebarlist">
           <li>
-            <Link to="/passvault">PASS VAULT</Link>
+            <Link to="/passvault" className="sidebarkeys">PASS VAULT</Link>
           </li>
           <li>
-            <Link to="/sshkeys">SSH KEYS</Link>
+            <Link to="/sshkeys" className="sidebarkeys">SSH KEYS</Link>
           </li>
           <li>
-            <Link to="/pgpkeys">PGP KEYS</Link>
+            <Link to="/pgpkeys" className="sidebarkeys">PGP KEYS</Link>
           </li>
           <li>
-            <Link to="settings">SETTINGS</Link>
+            <Link to="settings" className="sidebarkeys">SETTINGS</Link>
           </li>
         </ul>
       </div>

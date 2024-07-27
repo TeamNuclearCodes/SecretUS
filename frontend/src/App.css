@@ -1,10 +1,12 @@
 .body{
   display: flex;
-
+  background-color: #141313;
+}
+body{
+  overflow: hidden;
 }
 .sidebar{
   background-color: #221f1f;
-  height: 100vh;
   top: -30px;
   height: calc(100vh + 30px);
   position: relative;
@@ -23,7 +25,13 @@
 }
 .hr{
   height: 2px;
+  top: -10px;
   position: relative;
+  background-color: #855621;
+}
+.vr{
+  width:1px;
+  height: 100vh;
   background-color: #855621;
 }
 .sidebarcontent{
@@ -40,9 +48,26 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 80%;
+  height: 69%;
 }
 
 .sidebarcontent li{
-  color: white;
+  width: 100%;
+  height: 100%;
 }
+.sidebarcontent .sidebarkeys{
+  display: flex;
+  color: white;
+  transition: font-size 0.1s ease, text-shadow 0.5s ease;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.sidebar .sidebarkeys:hover {
+            font-size: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+
+        }

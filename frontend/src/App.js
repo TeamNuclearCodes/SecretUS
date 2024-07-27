@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="body">
       <Sidebar />
+      <div className="vr"/>
       <Outlet />
     </div>
   );
