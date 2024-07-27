@@ -1,6 +1,8 @@
 from Crypto.Cipher import AES
 from base64 import b64encode, b64decode
 from hashlib import sha256
+from flask_bcrypt import check_password_hash
+from db.functions.settings import getSettings
 
 def getSHA256sum(data):
     hash = sha256()
@@ -24,3 +26,8 @@ def decryptDataUsingAES(data, masterPassword, nonce):
     cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)
     password = cipher.decrypt(data)
     return password
+
+def checkMasterPassword(password):
+    settings = getSettings()
+    print(dict(settings))
+    return check_password_hash(settings.password, password)

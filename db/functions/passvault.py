@@ -15,31 +15,34 @@ def addNewPassToPassVault(password='',username='',service='', description='', no
     db.session.commit()
 
 def updatePassToPassVault(password='',username='',service='', description='', nonce="", id=""):
-    try:
-        # Fetch the record by ID
-        entry = getData(id)
-        
-        if entry is None:
-            print("Entry not found.")
-            return
-
-        # Update the fields if new values are provided
+    entry = getPasswordFromPassVault(id)
+    if entry:
         entry.password = password
         entry.description = description
         entry.service = service
         entry.nonce = nonce
         entry.username = username
-        
-
-        # Commit the changes to the database
         db.session.commit()
-        print("Entry updated successfully.")
-        
-    except Exception as e:
-        db.session.rollback()  # Roll back the transaction on error
-        print(f"An error occurred: {e}")
+        return True
+    return False
 
-
-def getData(id):
+def getPasswordFromPassVault(id):
      data = db.session.query(PassVault).filter_by(id=id).one_or_none()
      return data
+
+def removePasswordFromPassVault(id):
+    entry = getPasswordFromPassVault(id)
+    if not entry:
+        return False
+    db.session.delete(entry)
+    db.session.commit()
+
+def getPasswordsFromPassVault():
+    entires = db.session.query(
+        PassVault.id,
+        PassVault.username,
+        PassVault.description,
+        PassVault.service
+    ).all()
+    print(entires)
+    return entires

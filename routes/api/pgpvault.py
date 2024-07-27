@@ -1,27 +1,54 @@
 from flask import Blueprint, request
-from db.functions.settings import getSettings
 from flask import jsonify
-from vault import encryptDataUsingAES
-from db.functions.passvault import addNewPassToPassVault,updatePassToPassVault
+from vault import encryptDataUsingAES, decryptDataUsingAES
+from db.functions.pgpvault import addNewKewToPGPVault,removeKeyFromPGPVault,getKeyFromPGPVault, getKeysFromPGPVault
+from db import installationDir
 
 bp = Blueprint('pgpvault', __name__, url_prefix='/api/pgpvault')
 
 @bp.route('/new', methods=('POST',))
 def new():
     formData = request.json
-    encryptedPassword, nonce = encryptDataUsingAES(
-        data=formData['password'].encode('utf-8'),
-        masterPassword=formData['key'].encode('utf-8')
+    if 'file' not in request.files:
+        return jsonify({"error":"File not found"}),201
+    file = request.files["file"]
+    encryptedKey, nonce = encryptDataUsingAES(
+        data = file.read(),
+        masterPassword = formData['masterPassword'].encode('utf-8')
     )
-    addNewPassToPassVault(encryptedPassword, formData["username"], formData["service"], formData["description"], nonce)
-    return ''
+    addNewKewToPGPVault(
+        encryptedKey,
+        formData["username"],
+        formData["host"],
+        nonce
+    )
+    return jsonify({"message":"PGP key saved successfully"}),201
 
-@bp.route('/update', methods=('POST',))
-def update():
+@bp.route('/decrypt', methods=('POST',))
+def decrypt():
     formData = request.json
-    encryptedPassword, nonce = encryptDataUsingAES(
-        data=formData['password'].encode('utf-8'),
-        masterPassword=formData['key'].encode('utf-8')
+    dbData = getKeyFromPGPVault(formData["id"])
+    pgpkey = decryptDataUsingAES(
+        data = dbData.pgpkey,
+        masterPassword = formData['masterPassword'].encode('utf-8'),
+        nonce = dbData.nonce
     )
-    updatePassToPassVault(encryptedPassword, formData["username"], formData["service"], formData["description"], nonce, formData["id"])
-    return ''
+    exportFile = f'{installationDir}/{dbData.id}.pgp.key'
+    with open(exportFile, 'wb') as f:
+        f.write(pgpkey)
+    return jsonify({"message":f"PGP key exported to {exportFile}"}),201
+
+@bp.route('/delete', methods=('POST',))
+def delete():
+    formData = request.json
+    status = removeKeyFromPGPVault(formData["id"])
+    if not status:
+        return jsonify({"error": "Failed to delete"}),201
+    return jsonify({"message":"Deleted successfully"}),201
+
+@bp.route('/list', methods=('GET',))
+def pgpkeylist():
+    keys = ['id', 'title']
+    keyList = getKeysFromPGPVault()
+    dict_list = [dict(zip(keys, item)) for item in keyList]
+    return jsonify(dict_list),200

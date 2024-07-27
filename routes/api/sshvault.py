@@ -1,27 +1,48 @@
 from flask import Blueprint, request
-from db.functions.settings import getSettings
 from flask import jsonify
-from vault import encryptDataUsingAES
-from db.functions.passvault import addNewPassToPassVault,updatePassToPassVault
+from vault import encryptDataUsingAES, decryptDataUsingAES
+from db.functions.sshvault import addNewKewToSSHVault,removeKeyFromSSHVault,getKeyFromSSHVault
+from db import installationDir
 
 bp = Blueprint('sshvault', __name__, url_prefix='/api/sshvault')
 
 @bp.route('/new', methods=('POST',))
 def new():
     formData = request.json
+    if 'file' not in request.files:
+        return jsonify({"message":"Password saved successfully"}),201
+    file = request.files["file"]
     encryptedPassword, nonce = encryptDataUsingAES(
-        data=formData['password'].encode('utf-8'),
-        masterPassword=formData['key'].encode('utf-8')
+        data = file.read(),
+        masterPassword = formData['masterPassword'].encode('utf-8')
     )
-    addNewPassToPassVault(encryptedPassword, formData["username"], formData["service"], formData["description"], nonce)
-    return ''
+    print(file.read())
+    addNewKewToSSHVault(
+        encryptedPassword,
+        formData["username"],
+        formData["host"],
+        nonce
+    )
+    return jsonify({"message":"Password saved successfully"}),201
 
-@bp.route('/update', methods=('POST',))
-def update():
+@bp.route('/decrypt', methods=('POST',))
+def decrypt():
     formData = request.json
-    encryptedPassword, nonce = encryptDataUsingAES(
-        data=formData['password'].encode('utf-8'),
-        masterPassword=formData['key'].encode('utf-8')
+    dbData = getKeyFromSSHVault(formData["id"])
+    sshkey = decryptDataUsingAES(
+        data = dbData.sshkey,
+        masterPassword = formData['masterPassword'].encode('utf-8'),
+        nonce = dbData.nonce
     )
-    updatePassToPassVault(encryptedPassword, formData["username"], formData["service"], formData["description"], nonce, formData["id"])
-    return ''
+    exportFile = f'{installationDir}/{dbData.id}.ssh.key'
+    with open(exportFile, 'wb') as f:
+        f.write(sshkey)
+    return jsonify({"message":f"SSH key exported to {exportFile}"}),201
+
+@bp.route('/delete', methods=('POST',))
+def delete():
+    formData = request.json
+    status = removeKeyFromSSHVault(formData["id"])
+    if not status:
+        return jsonify({"error": "Failed to delete"}),201
+    return jsonify({"message":"Deleted successfully"}),201
