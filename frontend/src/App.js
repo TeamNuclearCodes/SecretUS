@@ -4,9 +4,14 @@ import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="body">
-      <Sidebar />
-      <Outlet />  
+    <div>
+      <div>
+        <Sidebar />
+        <Outlet />
+      </div>
+      <div>
+        
+      </div>
     </div>
   );
 }
