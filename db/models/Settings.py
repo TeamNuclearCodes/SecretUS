@@ -4,5 +4,4 @@ from db import db
 
 class Settings(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    salt: Mapped[str]
     password: Mapped[str]

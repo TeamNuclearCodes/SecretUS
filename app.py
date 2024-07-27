@@ -11,11 +11,10 @@ app = Flask(__name__, static_url_path='/' if not DEV else None,
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DBPath}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+db.init_app(app)
 
 from routes.api import settings
 app.register_blueprint(settings.bp)
-db.init_app(app)
 
 @app.route('/')
 def home():
