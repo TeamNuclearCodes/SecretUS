@@ -1,0 +1,22 @@
+.app {
+  display: flex;
+  background-color: #141313;
+}
+
+.sidebar {
+  background-color: #221f1f;
+  width: 20vw;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 50px 0 0 100px;
+}
+
+.sidebar li {
+  margin-top: 40px;
+  color: white;
+}
