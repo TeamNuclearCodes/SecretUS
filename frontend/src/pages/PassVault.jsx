@@ -16,15 +16,49 @@ const PassVault = () => {
     setPassword("");
   };
 
+  const handlePassswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    {
+      /* Password checking logic */
+    }
+    setIsPasswordEntered(true);
+  };
+
   return (
-    <div className="password-list">
-      <ul>
-        {items.map((item) => (
-          <li key={item.id} onClick={() => handleItemClick(item)}>
-            {item.site}
-          </li>
-        ))}
-      </ul>
+    <div className="content">
+      <div className="password-list">
+        <ul>
+          {items.map((item) => (
+            <li key={item.id} onClick={() => handleItemClick(item)}>
+              {item.site}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="item-details">
+        {!selectedItem ? (
+          <div>Nothing selected</div>
+        ) : !isPasswordEntered ? (
+          <form onSubmit={handlePasswordSubmit}>
+            <input
+              type="password"
+              value={password}
+              onChange={handlePassswordChange}
+              placeholder="Enter password"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        ) : (
+          <div>
+            {selectedItem.site}
+            {selectedItem.pass}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
