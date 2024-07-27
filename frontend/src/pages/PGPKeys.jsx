@@ -1,8 +1,9 @@
 import React from 'react'
 
 const PGPKeys = () => {
+  console.log("PGPKeys");
   return (
-    <div>PGPKeys</div>
+    <h1>HI</h1>
   )
 }
 
