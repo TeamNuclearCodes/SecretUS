@@ -4,7 +4,7 @@ import App from "./App.js";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Settings from './pages/Settings';
-import PassVault from './pages/PassVault';
+import PassVault from './pages/PassVault/PassVault';
 import SSHVault from './pages/SSHKeys';
 import PGPVault from './pages/PGPKeys';
 

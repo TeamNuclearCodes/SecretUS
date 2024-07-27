@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "./PassVault.css"
+
 
 const PassVault = () => {
   const items = [
@@ -33,7 +35,11 @@ const PassVault = () => {
       <div className="password-list">
         <ul>
           {items.map((item) => (
-            <li key={item.id} onClick={() => handleItemClick(item)}>
+            <li
+              key={item.id}
+              onClick={() => handleItemClick(item)}
+              className="passVaultItemList"
+            >
               {item.site}
             </li>
           ))}
