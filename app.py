@@ -4,6 +4,8 @@ from os import getenv
 from db import DBPath, db
 from routes.api import settings
 from routes.api import passvault
+from routes.api import sshvault
+from routes.api import pgpvault
 from dotenv import load_dotenv
 load_dotenv()
 DEV = getenv('MODE') == 'development'
@@ -20,6 +22,8 @@ db.init_app(app)
 
 app.register_blueprint(settings.bp)
 app.register_blueprint(passvault.bp)
+app.register_blueprint(sshvault.bp)
+app.register_blueprint(pgpvault.bp)
 
 @app.route('/')
 def home():
