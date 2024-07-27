@@ -1,8 +1,8 @@
 from flask import Blueprint, request
 from db.functions.settings import getSettings
 from flask import jsonify
-from vault import encryptDataUsingAES
-from db.functions.passvault import addNewPassToPassVault,updatePassToPassVault
+from vault import encryptDataUsingAES,decryptDataUsingAES
+from db.functions.passvault import addNewPassToPassVault,updatePassToPassVault,getData
 
 bp = Blueprint('passvault', __name__, url_prefix='/api/passvault')
 
@@ -24,4 +24,16 @@ def update():
         masterPassword=formData['key'].encode('utf-8')
     )
     updatePassToPassVault(encryptedPassword, formData["username"], formData["service"], formData["description"], nonce, formData["id"])
+    return ''
+
+@bp.route('/decrypt', methods=('POST',))
+def decrypt():
+    formData = request.json
+    dbData = getData(formData["id"])
+    password = decryptDataUsingAES(
+        data = dbData.password,
+        masterPassword = formData['key'].encode('utf-8'),
+        nonce = dbData.nonce
+    )
+    print(password.decode('utf-8'))
     return ''

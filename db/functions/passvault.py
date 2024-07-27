@@ -17,7 +17,7 @@ def addNewPassToPassVault(password='',username='',service='', description='', no
 def updatePassToPassVault(password='',username='',service='', description='', nonce="", id=""):
     try:
         # Fetch the record by ID
-        entry = db.session.query(PassVault).filter_by(id=id).one_or_none()
+        entry = getData(id)
         
         if entry is None:
             print("Entry not found.")
@@ -38,3 +38,8 @@ def updatePassToPassVault(password='',username='',service='', description='', no
     except Exception as e:
         db.session.rollback()  # Roll back the transaction on error
         print(f"An error occurred: {e}")
+
+
+def getData(id):
+     data = db.session.query(PassVault).filter_by(id=id).one_or_none()
+     return data
