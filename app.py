@@ -3,7 +3,9 @@ from flaskwebgui import FlaskUI
 from os import getenv
 from db import DBPath, db
 from routes.api import settings
-
+from routes.api import passvault
+from dotenv import load_dotenv
+load_dotenv()
 DEV = getenv('MODE') == 'development'
 
 app = Flask(
@@ -17,6 +19,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DBPath}'
 db.init_app(app)
 
 app.register_blueprint(settings.bp)
+app.register_blueprint(passvault.bp)
 
 @app.route('/')
 def home():
