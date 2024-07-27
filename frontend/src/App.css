@@ -5,13 +5,16 @@
 .sidebar{
   background-color: #221f1f;
   height: 100vh;
+  top: -30px;
+  height: calc(100vh + 30px);
+  position: relative;
   width: 20vw;
   display: flex;
   flex-direction: column;
 }
 .sidebarheader{
+  padding: 20px;
   position: relative;
-  top:-30px;
   overflow: hidden;
   height: auto;
   width: 100%;
@@ -21,7 +24,6 @@
 .hr{
   height: 2px;
   position: relative;
-  top: -40px;
   background-color: #855621;
 }
 .sidebarcontent{
