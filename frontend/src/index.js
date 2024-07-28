@@ -3,16 +3,22 @@ import ReactDOM from "react-dom/client";
 import App from "./App.js";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Settings from './pages/Settings';
-import PassVault from './pages/PassVault/PassVault';
-import SSHVault from './pages/SSHKeys';
-import PGPVault from './pages/PGPKeys';
+import Settings from "./pages/Settings";
+import PassVault from "./pages/PassVault/PassVault";
+import SSHVault from "./pages/SSHKeys";
+import PGPVault from "./pages/PGPKeys";
+import AddPassword from "./pages/AddPassword.jsx";
+import Home from "./pages/Home.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "",
+        element: <Home />,
+      },
       {
         path: "passvault",
         element: <PassVault />,
@@ -28,7 +34,19 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <Settings />,
-      }
+      },
+      {
+        path: "add_password",
+        element: <AddPassword />,
+      },
+      {
+        path: "leaks",
+        element: <Settings />,
+      },
+      {
+        path: "generate",
+        element: <Settings />,
+      },
     ],
   },
 ]);

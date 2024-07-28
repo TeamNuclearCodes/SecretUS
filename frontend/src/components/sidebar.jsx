@@ -10,7 +10,9 @@ export const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebarheader">
-        <img src={logo} alt="Example" />
+        <Link to="/">
+          <img src={logo} alt="Example" />
+        </Link>
       </div>
       <div className="hr"></div>
       <div className="sidebarcontent">
