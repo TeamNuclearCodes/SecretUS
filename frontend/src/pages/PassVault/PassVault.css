@@ -1,0 +1,59 @@
+.passVaultBody{
+    display: flex;
+    flex-grow: 1;
+}
+
+.password-list{
+    padding: 0;
+    width: 45vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    font-size: 25px;
+}
+
+.active{
+    background-color: #302e2e;
+}
+
+.passVaultItemList{
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.item-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+.item-details-form{
+    display: flex;
+    flex-direction: column;
+    height: 25vh;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+}
+
+.item-details-header{
+    background-color: #7b7272;
+    padding: 7px;
+    border-radius: 10px;
+    border: 1px, solid, #ffffff;
+}
+
+.button{
+    background-color: #302e2e;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px, solid, #f39425;
+}
+
+.item-details-form input{
+    padding: 5px;
+    border-radius: 5px;
+}
