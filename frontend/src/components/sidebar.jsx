@@ -35,12 +35,12 @@ export const Sidebar = () => {
               PGP KEYS
             </Link>
           </li>
-          <li>
+          {/* <li>
             <img src={settings} alt="Example" className="icon" />
             <Link to="settings" className="sidebarkeys">
               SETTINGS
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

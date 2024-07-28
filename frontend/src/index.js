@@ -32,10 +32,10 @@ const router = createBrowserRouter([
         path: "sshkeys",
         element: <SSHVault />,
       },
-      {
-        path: "settings",
-        element: <Settings />,
-      },
+      // {
+      //   path: "settings",
+      //   element: <Settings />,
+      // },
       {
         path: "add_password",
         element: <AddPassword />,
