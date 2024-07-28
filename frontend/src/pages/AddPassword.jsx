@@ -21,8 +21,20 @@ const AddPassword = () => {
     setIsPasswordEntered(true);
   };
 
-  const handleAddFormInput = (e, handleFunc) => {
-    handleFunc(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handleServiceChange = (e) => {
+    setService(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setNewPassword(e.target.value);
+  };
+
+  const handleDescChange = (e) => {
+    setDesc(e.target.value);
   };
 
   const handleAddFormSubmit = (e) => {
@@ -47,25 +59,25 @@ const AddPassword = () => {
           <input
             // type="text"
             value={username}
-            onChange={handleAddFormInput(setUsername)}
+            onChange={handleUsernameChange}
             placeholder="Enter username"
           />
           <input
             type="password"
             value={newPassword}
-            onChange={handleAddFormInput(setNewPassword)}
+            onChange={handlePasswordChange}
             placeholder="Enter password"
           />
           <input
             // type="text"
             value={service}
-            onChange={handleAddFormInput(setService)}
+            onChange={handleServiceChange}
             placeholder="Enter service"
           />
           <input
             type="text"
             value={desc}
-            onChange={handleAddFormInput(setDesc)}
+            onChange={handleDescChange}
             placeholder="Enter description"
           />
           <button type="submit">Submit</button>

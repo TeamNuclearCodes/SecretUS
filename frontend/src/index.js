@@ -9,6 +9,7 @@ import SSHVault from "./pages/SSHKeys";
 import PGPVault from "./pages/PGPKeys";
 import AddPassword from "./pages/AddPassword.jsx";
 import Home from "./pages/Home/Home.jsx";
+import CheckLeaks from "./pages/CheckLeaks.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "leaks",
-        element: <Settings />,
+        element: <CheckLeaks />,
       },
       {
         path: "generate",
