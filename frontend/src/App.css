@@ -58,7 +58,7 @@ body {
   height: 40px;
   position: relative;
   left: 30px;
-  transition: all 0.1s ease,
+  transition: all 0.1s ease;
 }
 
 .sidebarcontent li {
