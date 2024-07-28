@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./PassVault.css";
 
 const PassVault = () => {
   const [items, setItems] = useState([])
@@ -102,7 +101,7 @@ const PassVault = () => {
             </button>
           </form>
         ) : (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 p-[1px] bg-[#f39425] rounded-md">
             <table>
               <tr>
                 <th>Field</th>

@@ -1,87 +1,85 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 const AddPassword = () => {
-  const [isPasswordEntered, setIsPasswordEntered] = useState(false);
-  const [masterPassword, setMasterPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [service, setService] = useState("");
-  const [desc, setDesc] = useState("");
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
+  const [formData, setFormData] = useState({
+    masterPassword: '',
+    password: '',
+    username: '',
+    service: '',
+    description: '',
+  })
 
-  const handleMasterPassChange = (e) => {
-    setMasterPassword(e.target.value);
-  };
-
-  const handleMasterPassSubmit = (e) => {
-    e.preventDefault();
-    {
-      /* Password checking logic */
-    }
-    setIsPasswordEntered(true);
-  };
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handleServiceChange = (e) => {
-    setService(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setNewPassword(e.target.value);
-  };
-
-  const handleDescChange = (e) => {
-    setDesc(e.target.value);
-  };
+  const inputClasses = (other) => {
+    return `text-white bg-[rgba(48,46,46,0.49)] border border-[rgba(48,46,46,0.49)] focus:outline-none focus:border focus:border-[#f39425] text-xl px-4 py-2 rounded-md ${other}`
+  }
 
   const handleAddFormSubmit = (e) => {
     e.preventDefault();
-    // send data to store
+    fetch('/api/passvault/new', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        masterPassword: formData.masterPassword,
+        username: formData.username,
+        password: formData.password,
+        service: formData.service,
+        description: formData.description,
+      })
+    }).then(res => res.json())
+    .then(data => {
+      if (data.error) setError(data.error)
+      else if (data.message) navigate('/passvault')
+    })
   };
 
   return (
-    <div>
-      {!isPasswordEntered ? (
-        <form onSubmit={handleMasterPassSubmit}>
-          <input
-            type="password"
-            value={masterPassword}
-            onChange={handleMasterPassChange}
-            placeholder="Enter master password"
-          />
-          <button type="submit">Submit</button>
-        </form>
-      ) : (
-        <form onSubmit={handleAddFormSubmit}>
-          <input
-            // type="text"
-            value={username}
-            onChange={handleUsernameChange}
-            placeholder="Enter username"
-          />
-          <input
-            type="password"
-            value={newPassword}
-            onChange={handlePasswordChange}
-            placeholder="Enter password"
-          />
-          <input
-            // type="text"
-            value={service}
-            onChange={handleServiceChange}
-            placeholder="Enter service"
-          />
-          <input
-            type="text"
-            value={desc}
-            onChange={handleDescChange}
-            placeholder="Enter description"
-          />
-          <button type="submit">Submit</button>
-        </form>
-      )}
+    <div className="m-auto">
+      <h3 className="text-center text-2xl font-[500] mb-8">Add a new password to Pass Vault</h3>
+      <form onSubmit={handleAddFormSubmit} className="flex flex-col gap-2">
+        <input
+          type="text"
+          value={formData.username}
+          className={inputClasses()}
+          onChange={(e) => setFormData({...formData, username: e.target.value})}
+          placeholder="Enter Username"
+        />
+        <input
+          type="password"
+          value={formData.password}
+          className={inputClasses()}
+          onChange={(e) => setFormData({...formData, password: e.target.value})}
+          placeholder="Enter Password"
+        />
+        <input
+          type="text"
+          value={formData.service}
+          className={inputClasses()}
+          onChange={(e) => setFormData({...formData, service: e.target.value})}
+          placeholder="Enter Service"
+        />
+        <input
+          type="text"
+          value={formData.description}
+          className={inputClasses()}
+          onChange={(e) => setFormData({...formData, description: e.target.value})}
+          placeholder="Enter Description"
+        />
+        <input
+          type="password"
+          value={formData.masterPassword}
+          className={inputClasses()}
+          onChange={(e) => setFormData({...formData, masterPassword: e.target.value})}
+          placeholder="Master Password for encryption"
+        />
+        <button type="submit" className={inputClasses("bg-[#302e2e] hover:bg-[#f39425]")}>
+          Encrypt Password
+        </button>
+      </form>
     </div>
   );
 };
