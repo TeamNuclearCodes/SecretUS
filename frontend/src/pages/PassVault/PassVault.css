@@ -57,7 +57,7 @@ table {
 .item-details-form{
     display: flex;
     flex-direction: column;
-    height: 26vh;
+    height: 30vh;
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
