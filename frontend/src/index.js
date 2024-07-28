@@ -10,6 +10,7 @@ import PGPVault from "./pages/PGPKeys";
 import AddPassword from "./pages/AddPassword.jsx";
 import Home from "./pages/Home/Home.jsx";
 import CheckLeaks from "./pages/CheckLeaks.jsx";
+import Generate from "./pages/Generate/Generate.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: "generate",
-        element: <Settings />,
+        element: <Generate />,
       },
     ],
   },
