@@ -2,13 +2,12 @@ from db.models.SSHVault import SSHVault
 from db import db
 from uuid import uuid4
 
-def addNewKewToSSHVault(sshkey='', username='', host='', description='', nonce=''):
+def addNewKewToSSHVault(sshkey='', username='', host='', nonce=''):
     newkey = SSHVault(
         id = str(uuid4()),
         sshkey = sshkey,
         username = username,
         host = host,
-        description = description,
         nonce = nonce
     )
     db.session.add(newkey)
@@ -24,3 +23,12 @@ def removeKeyFromSSHVault(id):
         return False
     db.session.delete(entry)
     db.session.commit()
+
+def getSSHFromSSHVault():
+    entires = db.session.query(
+        SSHVault.id,
+        SSHVault.username,
+        SSHVault.host
+    ).all()
+    print(entires)
+    return entires

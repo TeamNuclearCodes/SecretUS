@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PassVault.css";
 
 const PassVault = () => {
-  const items = [
-    { id: 1, site: "www.google.com", pass: "google" },
-    { id: 2, site: "www.instagram.com", pass: "insta" },
-    { id: 3, site: "www.facebook.com", pass: "fb" },
-  ];
+  const [items, setItems] = useState([])
   const [selectedItem, setSelectedItem] = useState({id:""});
   const [isPasswordEntered, setIsPasswordEntered] = useState(false);
   const [masterPassword, setMasterPassword] = useState("");
+
+  useEffect(() => {
+    const fetchPassVault = async () => {
+      fetch('/api/passvault/list').then(response => response.json())
+      .then(data => setItems(data));
+    }
+    fetchPassVault();
+  },[])
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -23,16 +27,24 @@ const PassVault = () => {
 
   const handleMasterPassSubmit = (e) => {
     e.preventDefault();
-    {
-      /* Password checking logic */
-    }
+    fetch('/api/passvault/decrypt', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        masterPassword: masterPassword,
+        id: selectedItem.id
+      })
+    }).then(res => res.json()).then(data => setSelectedItem(data))
     setIsPasswordEntered(true);
   };
 
   return (
     <div className="passVaultBody">
       <ul className="password-list">
-        {items.map((item) => (
+        {console.log(items)}
+        {items && items.map((item) => (
           <li
             key={item.id}
             onClick={() => {
@@ -41,11 +53,11 @@ const PassVault = () => {
             }}
             className={
               item.id === selectedItem.id
-                ? "passVaultItemList active"
-                : "passVaultItemList"
+                ? "passVaultItemList active cursor-pointer"
+                : "passVaultItemList cursor-pointer"
             }
           >
-            {item.site}
+            {item.service}
           </li>
         ))}
       </ul>
@@ -58,6 +70,7 @@ const PassVault = () => {
             <div className="item-details-header">Enter Master Password</div>
             <input
               type="password"
+              className="text-black"
               value={masterPassword}
               onChange={handleMasterPassChange}
               placeholder="Enter master password"
@@ -67,9 +80,11 @@ const PassVault = () => {
             </button>
           </form>
         ) : (
-          <div>
-            {selectedItem.site}
-            {selectedItem.pass}
+          <div className="flex">
+            {selectedItem.service}
+            {selectedItem.description}
+            {selectedItem.username}
+            {selectedItem.password}
           </div>
         )}
       </div>

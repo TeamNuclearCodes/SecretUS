@@ -1,7 +1,12 @@
 from flask import Blueprint, request
 from flask import jsonify
-from vault import encryptDataUsingAES, decryptDataUsingAES
-from db.functions.pgpvault import addNewKewToPGPVault,removeKeyFromPGPVault,getKeyFromPGPVault, getKeysFromPGPVault
+from vault import encryptDataUsingAES, decryptDataUsingAES, checkMasterPassword
+from db.functions.pgpvault import (
+    addNewKewToPGPVault,
+    removeKeyFromPGPVault,
+    getKeyFromPGPVault,
+    getKeysFromPGPVault
+)
 from db import installationDir
 
 bp = Blueprint('pgpvault', __name__, url_prefix='/api/pgpvault')
@@ -9,12 +14,16 @@ bp = Blueprint('pgpvault', __name__, url_prefix='/api/pgpvault')
 @bp.route('/new', methods=('POST',))
 def new():
     formData = request.json
+    masterPassword = formData['masterPassword']
+    isUser = checkMasterPassword(masterPassword)
+    if not isUser:
+        return jsonify({"error":"Incorrect master password"}),403
     if 'file' not in request.files:
         return jsonify({"error":"File not found"}),201
     file = request.files["file"]
     encryptedKey, nonce = encryptDataUsingAES(
         data = file.read(),
-        masterPassword = formData['masterPassword'].encode('utf-8')
+        masterPassword = masterPassword.encode('utf-8')
     )
     addNewKewToPGPVault(
         encryptedKey,
@@ -27,10 +36,14 @@ def new():
 @bp.route('/decrypt', methods=('POST',))
 def decrypt():
     formData = request.json
+    masterPassword = formData['masterPassword']
+    isUser = checkMasterPassword(masterPassword)
+    if not isUser:
+        return jsonify({"error":"Incorrect master password"}),403
     dbData = getKeyFromPGPVault(formData["id"])
     pgpkey = decryptDataUsingAES(
         data = dbData.pgpkey,
-        masterPassword = formData['masterPassword'].encode('utf-8'),
+        masterPassword = masterPassword.encode('utf-8'),
         nonce = dbData.nonce
     )
     exportFile = f'{installationDir}/{dbData.id}.pgp.key'

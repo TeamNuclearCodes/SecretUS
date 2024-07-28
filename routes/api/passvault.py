@@ -2,16 +2,26 @@ from flask import Blueprint, request
 from db.functions.settings import getSettings
 from flask import jsonify
 from vault import encryptDataUsingAES, decryptDataUsingAES, checkMasterPassword
-from db.functions.passvault import addNewPassToPassVault,updatePassToPassVault, getPasswordFromPassVault, removePasswordFromPassVault, getPasswordsFromPassVault
+from db.functions.passvault import (
+    addNewPassToPassVault,
+    updatePassToPassVault,
+    getPasswordFromPassVault, 
+    removePasswordFromPassVault,
+    getPasswordsFromPassVault
+)
 
 bp = Blueprint('passvault', __name__, url_prefix='/api/passvault')
 
 @bp.route('/new', methods=('POST',))
 def new():
     formData = request.json
+    masterPassword = formData['masterPassword']
+    isUser = checkMasterPassword(masterPassword)
+    if not isUser:
+        return jsonify({"error":"Incorrect master password"}),403
     encryptedPassword, nonce = encryptDataUsingAES(
         data = formData['password'].encode('utf-8'),
-        masterPassword = formData['masterPassword'].encode('utf-8')
+        masterPassword = masterPassword.encode('utf-8')
     )
     addNewPassToPassVault(
         encryptedPassword,
@@ -25,9 +35,13 @@ def new():
 @bp.route('/update', methods=('POST',))
 def update():
     formData = request.json
+    masterPassword = formData['masterPassword']
+    isUser = checkMasterPassword(masterPassword)
+    if not isUser:
+        return jsonify({"error":"Incorrect master password"}),403
     encryptedPassword, nonce = encryptDataUsingAES(
         data = formData['password'].encode('utf-8'),
-        masterPassword = formData['masterPassword'].encode('utf-8')
+        masterPassword = masterPassword.encode('utf-8')
     )
     a = updatePassToPassVault(
         encryptedPassword,
@@ -43,11 +57,16 @@ def update():
 
 @bp.route('/decrypt', methods=('POST',))
 def decrypt():
+    print(request.json)
     formData = request.json
+    masterPassword = formData['masterPassword']
+    isUser = checkMasterPassword(masterPassword)
+    if not isUser:
+        return jsonify({"error":"Incorrect master password"}),403
     dbData = getPasswordFromPassVault(formData["id"])
     password = decryptDataUsingAES(
         data = dbData.password,
-        masterPassword = formData['masterPassword'].encode('utf-8'),
+        masterPassword = masterPassword.encode('utf-8'),
         nonce = dbData.nonce
     )
     return jsonify({

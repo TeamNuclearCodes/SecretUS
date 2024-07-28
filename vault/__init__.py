@@ -29,5 +29,6 @@ def decryptDataUsingAES(data, masterPassword, nonce):
 
 def checkMasterPassword(password):
     settings = getSettings()
-    print(dict(settings))
+    if not settings:
+        return False
     return check_password_hash(settings.password, password)
