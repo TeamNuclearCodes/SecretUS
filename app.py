@@ -41,4 +41,4 @@ if __name__ == "__main__":
     if DEV:
         Flask.run(app,debug=True)
     else:
-        FlaskUI(app=app,width=800,height=600, server="flask").run()
+        FlaskUI(app=app,width=900,height=600, server="flask").run()
