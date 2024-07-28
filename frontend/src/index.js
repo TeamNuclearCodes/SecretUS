@@ -8,7 +8,7 @@ import PassVault from "./pages/PassVault/PassVault";
 import SSHVault from "./pages/SSHKeys";
 import PGPVault from "./pages/PGPKeys";
 import AddPassword from "./pages/AddPassword.jsx";
-import Home from "./pages/Home.jsx";
+import Home from "./pages/Home/Home.jsx";
 
 const router = createBrowserRouter([
   {

@@ -5,7 +5,7 @@
 
 .password-list{
     padding: 0;
-    width: 45vw;
+    width: 40vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,13 +16,20 @@
 
 .active{
     background-color: #302e2e;
+    border: 2px solid #f39425;
 }
 
 .passVaultItemList{
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
+    transition: all 0.1s ease;
 }
+
+.passVaultItemList:hover{
+    background-color: #302e2e;
+}
+
 
 .item-details{
     display: flex;
