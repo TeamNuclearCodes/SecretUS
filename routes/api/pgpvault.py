@@ -8,6 +8,7 @@ from db.functions.pgpvault import (
     getKeysFromPGPVault
 )
 from db import installationDir
+from base64 import b64decode
 
 bp = Blueprint('pgpvault', __name__, url_prefix='/api/pgpvault')
 
@@ -18,17 +19,13 @@ def new():
     isUser = checkMasterPassword(masterPassword)
     if not isUser:
         return jsonify({"error":"Incorrect master password"}),403
-    if 'file' not in request.files:
-        return jsonify({"error":"File not found"}),201
-    file = request.files["file"]
     encryptedKey, nonce = encryptDataUsingAES(
-        data = file.read(),
+        data = b64decode(formData['file']),
         masterPassword = masterPassword.encode('utf-8')
     )
     addNewKewToPGPVault(
         encryptedKey,
-        formData["username"],
-        formData["host"],
+        formData["title"],
         nonce
     )
     return jsonify({"message":"PGP key saved successfully"}),201

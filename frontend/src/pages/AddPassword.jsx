@@ -3,7 +3,6 @@ import React, { useState } from "react";
 const AddPassword = () => {
   const [isPasswordEntered, setIsPasswordEntered] = useState(false);
   const [masterPassword, setMasterPassword] = useState("");
-  // new password inputs
   const [newPassword, setNewPassword] = useState("");
   const [username, setUsername] = useState("");
   const [service, setService] = useState("");

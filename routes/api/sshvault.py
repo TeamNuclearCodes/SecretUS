@@ -8,6 +8,7 @@ from db.functions.sshvault import (
     getSSHFromSSHVault
 )
 from db import installationDir
+from base64 import b64decode
 
 bp = Blueprint('sshvault', __name__, url_prefix='/api/sshvault')
 
@@ -18,16 +19,12 @@ def new():
     isUser = checkMasterPassword(masterPassword)
     if not isUser:
         return jsonify({"error":"Incorrect master password"}),403
-    if 'file' not in request.files:
-        return jsonify({"message":"Password saved successfully"}),201
-    file = request.files["file"]
-    encryptedPassword, nonce = encryptDataUsingAES(
-        data = file.read(),
+    encryptedKey, nonce = encryptDataUsingAES(
+        data = b64decode(formData['file']),
         masterPassword = masterPassword.encode('utf-8')
     )
-    print(file.read())
     addNewKewToSSHVault(
-        encryptedPassword,
+        encryptedKey,
         formData["username"],
         formData["host"],
         nonce

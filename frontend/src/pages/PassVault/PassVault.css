@@ -10,26 +10,43 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+    gap: 20px;
     font-size: 25px;
 }
 
 .active{
-    background-color: #302e2e;
-    border: 2px solid #f39425;
+    background-color: #302e2e !important;
+    border: 2px solid #f39425 !important;
 }
 
 .passVaultItemList{
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
     transition: all 0.1s ease;
+    border: 2px solid rgba(48,46,46,0.49);
+    @apply py-2 px-2 w-10/12 rounded-md bg-[rgba(48,46,46,0.49)]
 }
 
 .passVaultItemList:hover{
     background-color: #302e2e;
 }
 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #111;
+    width: 30vw;
+    font-size: 20px;
+  }
+  
+  td, th {
+    border: 1px solid #3333;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #333;
+  }
 
 .item-details{
     display: flex;
@@ -40,24 +57,16 @@
 .item-details-form{
     display: flex;
     flex-direction: column;
-    height: 25vh;
+    height: 16vh;
     justify-content: space-between;
     align-items: center;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .item-details-header{
-    background-color: #7b7272;
     padding: 7px;
     border-radius: 10px;
     border: 1px, solid, #ffffff;
-}
-
-.button{
-    background-color: #302e2e;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px, solid, #f39425;
 }
 
 .item-details-form input{

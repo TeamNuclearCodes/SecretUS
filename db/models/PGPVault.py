@@ -5,3 +5,4 @@ class PGPVault(db.Model):
     id: Mapped[str] = mapped_column(primary_key=True)
     title: Mapped[str]
     pgpkey: Mapped[str]
+    nonce: Mapped[str]

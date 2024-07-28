@@ -73,7 +73,8 @@ def decrypt():
         "password": password.decode('utf-8'),
         "service": dbData.service,
         "description": dbData.description,
-        "username": dbData.username
+        "username": dbData.username,
+        "id": dbData.id
     }),201
 
 @bp.route('/delete', methods=('POST',))

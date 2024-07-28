@@ -17,8 +17,7 @@ function Generate() {
     }
         }
         generator()
-  },[]
-    )
+  },[])
   return (
     <div>{generated}</div>
   )
