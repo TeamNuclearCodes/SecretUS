@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "./CheckLeaks.css";
+import formLogo from "../../images/form_logo.png";
 
 // const crypto = require("crypto");
 
@@ -47,20 +49,25 @@ const CheckLeaks = () => {
   };
 
   return (
-    <div>
+    <div className="content">
+      <div className="imgcontainer">
+        <img src={formLogo} alt="logo" className="logo"></img>
+      </div>
       <input
         type="password"
         value={password}
         onChange={handleChange}
         placeholder="Enter password"
-        style={{ color: "black" }}
+        className="leak-input"
       />
-      <button onClick={handleCheck}>Check</button>
+      <button onClick={handleCheck} className="leak-btn">
+        Check
+      </button>
       {beenPwned !== null &&
         (beenPwned ? (
-          <div>Your password has been leaked somewhere</div>
+          <div className="danger">Your password has leaked somewhere!</div>
         ) : (
-          <div>Your password is safe</div>
+          <div className="safe">Your password is safe</div>
         ))}
     </div>
   );
