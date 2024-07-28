@@ -15,3 +15,9 @@ build:
 	cd frontend && npm run build
 	cd ../
 	pyinstaller -w -F --add-data "frontend/build:frontend/build" app.py  --distpath buildapp/dist --workpath buildapp/buildapp
+
+install: install_deps build
+	cp buildapp/dist/app /usr/bin/secureus
+	cp secretus.desktop /usr/share/applications/secretus.desktop
+	cp imgs/logo.png /usr/share/icons/secureus.png
+	chmod +x /usr/share/applications/secretus.desktop
