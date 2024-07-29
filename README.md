@@ -30,12 +30,21 @@ SecretUS is a secure and reliable password manager designed to store and manage 
 git clone https://github.com/TeamNuclearCodes/SecretUS.git
 cd SecretUS
 sudo make install
+# SecretUS will be available under application search menu after installation
 ```
 ### Windows
 ```powershell
 git clone https://github.com/TeamNuclearCodes/SecretUS.git
 cd SecretUS
-.\install_build.ps1
+python3 -m virtualenv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+cd frontend
+npm i
+npm run build
+cd ..
+pyinstaller -w -F --add-data "frontend/build;frontend/build" app.py --distpath build/dist --workpath build/build
+.\build\dist\app.exe
 ```
 
 ## Gallery
