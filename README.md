@@ -40,6 +40,15 @@ cd SecretUS
 
 ## Gallery
 
+| Home|Pass Vault (Decrypted password)|
+:-:|:-:
+| ![](imgs/img4.png) | ![](imgs/img1.png) |
+
+| SSH Vault|PGP Vault (Key export) |
+:-:|:-:
+| ![](imgs/img2.png) | ![](imgs/img3.png) |
+
+
 ## Team Members
 
 <div align="center">
