@@ -1,7 +1,7 @@
 # SecretUS
 
 <div align="center">
-  <img src="frontend/src/images/Logo.svg" width="150"/>
+  <img src="imgs/logo1.png" width="150"/>
   <p>
   A one stop solution for people who have hard time recalling passwords.
   </p>
