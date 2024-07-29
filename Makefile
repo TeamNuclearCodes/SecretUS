@@ -17,7 +17,7 @@ build:
 	pyinstaller -w -F --add-data "frontend/build:frontend/build" app.py  --distpath buildapp/dist --workpath buildapp/buildapp
 
 install: install_deps build
-	cp buildapp/dist/app /usr/bin/secureus
+	cp buildapp/dist/app /usr/bin/secretus
 	cp secretus.desktop /usr/share/applications/secretus.desktop
-	cp imgs/logo.png /usr/share/icons/secureus.png
+	cp imgs/logo.png /usr/share/icons/secretus.png
 	chmod +x /usr/share/applications/secretus.desktop
