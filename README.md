@@ -29,8 +29,7 @@ SecretUS is a secure and reliable password manager designed to store and manage 
 ```bash
 git clone https://github.com/TeamNuclearCodes/SecretUS.git
 cd SecretUS
-make install_deps
-make build
+sudo make install
 ```
 ### Windows
 ```powershell

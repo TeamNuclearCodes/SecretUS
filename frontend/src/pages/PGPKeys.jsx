@@ -10,12 +10,13 @@ const PassVault = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [formdata,setFormData] = useState({title:""});
 
+  const fetchPGPVault = () => {
+    fetch('/api/pgpvault/list').then(response => response.json())
+    .then(data => setItems(data));
+  }
+
   useEffect(() => {
-    const fetchPassVault = async () => {
-      fetch('/api/pgpvault/list').then(response => response.json())
-      .then(data => setItems(data));
-    }
-    fetchPassVault();
+    fetchPGPVault();
   },[])
 
   const handleItemClick = (item) => {
@@ -51,8 +52,7 @@ const PassVault = () => {
           masterPassword: masterPassword,
           title: formdata.title
         })
-      }).then(res => res.json())
-      .then(data => console.log(data))
+      }).then(res => fetchPGPVault());
     };
   };
 

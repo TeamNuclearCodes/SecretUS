@@ -10,12 +10,13 @@ const PassVault = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [formdata,setFormData] = useState({username:"", host:""});
 
+  const fetchSSHVault = () => {
+    fetch('/api/sshvault/list').then(response => response.json())
+    .then(data => setItems(data));
+  }
+
   useEffect(() => {
-    const fetchPassVault = async () => {
-      fetch('/api/sshvault/list').then(response => response.json())
-      .then(data => setItems(data));
-    }
-    fetchPassVault();
+    fetchSSHVault();
   },[])
 
   const handleItemClick = (item) => {
@@ -52,8 +53,7 @@ const PassVault = () => {
           username: formdata.username,
           host: formdata.host
         })
-      }).then(res => res.json())
-      .then(data => console.log(data))
+      }).then(res => fetchSSHVault())
     };
   };
 

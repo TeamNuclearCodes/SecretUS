@@ -8,7 +8,7 @@ const PassVault = () => {
   const [masterPassword, setMasterPassword] = useState("");
 
   useEffect(() => {
-    const fetchPassVault = async () => {
+    const fetchPassVault = () => {
       fetch('/api/passvault/list').then(response => response.json())
       .then(data => setItems(data));
     }
@@ -61,11 +61,11 @@ const PassVault = () => {
                 : "passVaultItemList cursor-pointer"
             }
           >
-            <p className="text-md flex justify-between w-full align-middle items-center">
-              <span>{item.service}</span>
-              <span className="text-sm">User: {item.username}</span>
+            <p className="flex justify-between w-full align-middle items-center">
+              <span className="text-[20px]">{item.service}</span>
+              <span className="text-[16px]">User: {item.username}</span>
             </p>
-            <h5 className="text-sm">{item.description}</h5>
+            <h5 className="text-[16px]">{item.description}</h5>
           </li>
         )): (
           <div className="text-xl font-[500] text-center">

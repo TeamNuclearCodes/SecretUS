@@ -10,6 +10,7 @@ import AddPassword from "./pages/AddPassword.jsx";
 import Home from "./pages/Home/Home.jsx";
 import CheckLeaks from "./pages/CheckLeaks/CheckLeaks.jsx";
 import Generate from "./pages/Generate/Generate.jsx";
+import Register from "./pages/Register.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,10 +33,6 @@ const router = createBrowserRouter([
         path: "sshkeys",
         element: <SSHVault />,
       },
-      // {
-      //   path: "settings",
-      //   element: <Settings />,
-      // },
       {
         path: "add_password",
         element: <AddPassword />,
@@ -49,6 +46,10 @@ const router = createBrowserRouter([
         element: <Generate />,
       },
     ],
+  },
+  {
+    path: "register",
+    element: <Register />,
   },
 ]);
 
