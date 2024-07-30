@@ -11,3 +11,7 @@ def createSettings(password):
     )
     db.session.add(settings)
     db.session.commit()
+
+def resetDataBase():
+    db.drop_all()
+    db.create_all()
