@@ -1,10 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../images/Logo.svg";
 import lock from "../images/Lock.svg";
 import ssh from "../images/SSH.svg";
 import pgp from "../images/PGP.svg";
 import settings from "../images/Settings.svg";
+
+const sideBarItems = [
+  {
+    path: '/passvault',
+    title: 'PASS VAULT',
+    icon: lock
+  },
+  {
+    path: '/sshkeys',
+    title: 'SSH VAULT',
+    icon: ssh
+  },
+  {
+    path: '/pgpkeys',
+    title: 'PGP VAULT',
+    icon: pgp
+  },
+  {
+    path: '/settings',
+    title: 'SETTINGS',
+    icon: settings
+  }
+]
 
 export const Sidebar = () => {
   return (
@@ -17,30 +40,14 @@ export const Sidebar = () => {
       <div className="hr"></div>
       <div className="sidebarcontent">
         <ul className="sidebarlist">
-          <li>
-            <img src={lock} alt="Example" className="icon" />
-            <Link to="/passvault" className="sidebarkeys">
-              PASS VAULT
-            </Link>
-          </li>
-          <li>
-            <img src={ssh} alt="Example" className="icon" />
-            <Link to="/sshkeys" className="sidebarkeys">
-              SSH VAULT
-            </Link>
-          </li>
-          <li>
-            <img src={pgp} alt="Example" className="icon" />
-            <Link to="/pgpkeys" className="sidebarkeys">
-              PGP VAULT
-            </Link>
-          </li>
-          <li>
-            <img src={settings} alt="Example" className="icon" />
-            <Link to="settings" className="sidebarkeys">
-              SETTINGS
-            </Link>
-          </li>
+          {sideBarItems.map((item) => (
+            <li>
+              <NavLink to={item.path} className="sidebarkeys gap-20 items-center">
+              <img src={item.icon} alt="Example" className="icon" />
+                {item.title}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

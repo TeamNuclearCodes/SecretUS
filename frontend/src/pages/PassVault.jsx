@@ -57,7 +57,7 @@ const PassVault = () => {
             }}
             className={
               item.id === selectedItem.id
-                ? "passVaultItemList active cursor-pointer"
+                ? "passVaultItemList active-item cursor-pointer"
                 : "passVaultItemList cursor-pointer"
             }
           >

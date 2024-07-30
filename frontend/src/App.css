@@ -34,7 +34,7 @@ body {
 }
 .vr {
   width: 1px;
-  height: 100vh;
+  height: 100dvh;
   background-color: #855621;
 }
 .sidebarcontent {
@@ -43,8 +43,7 @@ body {
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 30px;
 }
 .sidebarcontent ul {
   display: flex;
@@ -76,17 +75,13 @@ body {
   transition: font-size 0.1s ease, text-shadow 0.5s ease;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
   @apply font-[600] text-lg
 }
 .sidebar li:hover > .sidebarkeys {
   font-size: 20px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
-.sidebar li:hover > .icon{
+.sidebar li:hover > .sidebarkeys >.icon{
   height: 50px;
   left: 20px;
 }
@@ -107,16 +102,17 @@ body {
   font-size: 25px;
 }
 
-.active{
-  background-color: #302e2e !important;
-  border: 2px solid #f39425 !important;
-}
-
 .passVaultItemList{
   transition: all 0.1s ease;
   border: 2px solid rgba(48,46,46,0.49);
   @apply py-2 px-2 w-10/12 rounded-md bg-[rgba(48,46,46,0.49)]
 }
+
+.active-item{
+  background-color: #302e2e !important;
+  border: 2px solid #f39425 !important;
+}
+
 
 .passVaultItemList:hover{
   background-color: #302e2e;
@@ -166,4 +162,9 @@ tr:nth-child(even) {
 .item-details-form input{
   padding: 5px;
   border-radius: 5px;
+}
+
+.active{
+  background-color: #141313;
+  border-radius: 50px 0 0 50px;
 }
