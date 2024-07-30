@@ -80,6 +80,7 @@ body {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  @apply font-[600] text-lg
 }
 .sidebar li:hover > .sidebarkeys {
   font-size: 20px;

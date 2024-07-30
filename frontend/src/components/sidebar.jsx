@@ -26,21 +26,21 @@ export const Sidebar = () => {
           <li>
             <img src={ssh} alt="Example" className="icon" />
             <Link to="/sshkeys" className="sidebarkeys">
-              SSH KEYS
+              SSH VAULT
             </Link>
           </li>
           <li>
             <img src={pgp} alt="Example" className="icon" />
             <Link to="/pgpkeys" className="sidebarkeys">
-              PGP KEYS
+              PGP VAULT
             </Link>
           </li>
-          {/* <li>
+          <li>
             <img src={settings} alt="Example" className="icon" />
             <Link to="settings" className="sidebarkeys">
               SETTINGS
             </Link>
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>

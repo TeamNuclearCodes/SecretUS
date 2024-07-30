@@ -11,6 +11,7 @@ import Home from "./pages/Home/Home.jsx";
 import CheckLeaks from "./pages/CheckLeaks/CheckLeaks.jsx";
 import Generate from "./pages/Generate/Generate.jsx";
 import Register from "./pages/Register.jsx";
+import Settings from "./pages/Settings.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "generate",
         element: <Generate />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
       },
     ],
   },
