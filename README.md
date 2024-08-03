@@ -36,7 +36,7 @@ sudo make install
 ```powershell
 git clone https://github.com/TeamNuclearCodes/SecretUS.git
 cd SecretUS
-python3 -m virtualenv .venv
+python -m virtualenv .venv
 .\.venv\Scripts\activate
 pip install -r requirements.txt
 cd frontend
