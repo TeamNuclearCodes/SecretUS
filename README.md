@@ -7,6 +7,9 @@
   </p>
 </div>
 
+> [!TIP]
+> This project received a special mention from the jury in [FOSS Hack 2024](https://forum.fossunited.org/t/foss-hack-2024-results/3964#special-mentions-2)
+> 
 ## Contents
 
 - [**Overview**](#overview)
